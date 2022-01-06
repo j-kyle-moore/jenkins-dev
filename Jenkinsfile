@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'kaniko-harbor'
+    }
+
+  }
   stages {
     stage('Copy config files') {
       steps {
