@@ -1,0 +1,249 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          description: "harbor-km-test-robot-eaddev"
+          id: "harbor-km-test-robot-eaddev"
+          password: "{AQAAABAAAAAwJYCHRhKUFlNM6z53/fV37CuYHbgddVzIOO820I683iOaotSU3gE6ZTdp7KYrTodjIiBs/w/j185M3XalgVOOfg==}"
+          scope: GLOBAL
+          username: "robot$eaddev"
+      - usernamePassword:
+          description: "github-km"
+          id: "github-km"
+          password: "{AQAAABAAAAAwg7KgpiS3bRZ/swDfzgfd6HsraooRG3RnasI5aJN+8fQt/VCvlpOEEZ9oxBmJnJrciG06mcCpVsO5vQnsJDzX6Q==}"
+          scope: GLOBAL
+          username: "j-kyle-moore"
+      - usernamePassword:
+          description: "j7-bitbucket"
+          id: "j7-bitbucket"
+          password: "{AQAAABAAAAAgkgQVq4E79QvrWHM5+ii9EMoWhLnGKxQyz6ySuOMTqqMDzeTNOJtljOhg/pwqxjDx}"
+          scope: GLOBAL
+          username: "zj7jtt-cicd"
+      - usernamePassword:
+          description: "j7-repo1"
+          id: "j7-repo1"
+          password: "{AQAAABAAAAAwI3jLJj+OYM7qOPKWcDbbnCeQ7I6lsVgB3dyK7d3dLUNrQ1og4qia/20UfINdW6fldKGARQRCigjxcXM3EcEavw==}"
+          scope: GLOBAL
+          username: "robot-ironbank+joint-chiefs-of-staff-imagepullonly"
+      - usernamePassword:
+          description: "j7-rhel-containers"
+          id: "j7-rhel-containers"
+          password: "{AQAAABAAAAMAFtwlARgMtU8C8rOF6SOaqBt1aHpxZ9YypUlPlRibnlVgyhiWXd4E7JLBMO9ziXkKzdhI/K+sWkpYKlvIp0DDKebSBgNOKPISUwmA9ihRs9h3EOxO0kehNqEYn3nHqpelio4xEc47Z7engvx/uCNuvWPDuuJGrc8sQ6ei6PUodtHsGVsabkjJ+tnjO6MpRgLl58SP1Z2RSu1gejxMuB/JGDqQCyeW3M4Gtlx6PxsLbN2EKkgV8APSqYRbS0ygXbYNASct//FeQZdZwpeVwPyuHtC5W4kdXEOWftDSBaTyD8Y1awvbI+fGOnKsxEJGCIyPfXZFVRKPZqWp/nHqBAOQTnaMNCD6aYDw7XRE0IWTt+2kkm8/NIKRHliO/ZK4amuQRy13mgdWOM98eEz8rgnLW2fPT8/FhlTfw8z5hzOLe9tA3MkHibOgFc83/h9ApKYKwe7QqB0Jx8imJK+W3zCvVnnCHNzpq4QPnGvZtzEM9GhmqKNQCu8vqTMNHoUe1kP/9MFgoFkUy4J3gGMhR8cMH9vKFEq1F4roDXz/yd+TK3bkMtodEIAWeCFu2n/UqUHeO/0KPc+EmvkOG8WPu8HUuZwx4iZiJQCiVfCmw9dX45idHuqFKYc10k3BAtfgSHSY+iL2vWjUkRe1SFIIy1V9m1I9aHZk0a6MpBmuwykjspno/CK6i/ECIy62z7X2WMPc7flUokFGHsBRVJBUlaCZC9xfPgb4mUUCPgoE2qIyPGfKN6xNM5LnaPBuryvsSwDzmFoZSzwSNyLoEUWZeHz4cEMfxExlf7+DKrU+gwQUSV0yDi1T1uyURkig1hvKMTqLvkKsgXrbLlGI+s45ma7s3sE8Zq4o+0u7JA/aFawQSHxvYJR9HuYniTjkUEz8jCc/CQUa9PYJ2XcROrlmsVX+AT+hduNOCSNgXeF8xeQ32BJuW3sziRSEX8FvXK1sMNNLIbqWnxTJjkjnWA2AhiBOehP6LYzwzIz30g9k/ihh7EKuBL71x930wzM/HzN4dofd9QbTXAbE9q+dzcshCVrsKQ==}"
+          scope: GLOBAL
+          username: "7321747|rancher-containers"
+      - certificate:
+          description: "km-test-ca"
+          id: "km-test-ca"
+          keyStoreSource:
+            uploaded:
+              uploadedKeystore: "****"
+          password: "{AQAAABAAAAAQVhldiqbVC7mjzLyswW8HXYpW8B2cH+7JPTlF+h+fEuQ=}"
+          scope: GLOBAL
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+  - kubernetes:
+      connectTimeout: 50
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsTunnel: "jenkins-commercial-agent.jenkins.svc.cluster.local:50000"
+      jenkinsUrl: "http://jenkins-commercial.jenkins.svc.cluster.local:8080"
+      name: "kubernetes"
+      namespace: "jenkins"
+      podLabels:
+      - key: "jenkins/jenkins-commercial-jenkins-agent"
+        value: "true"
+      readTimeout: 150
+      serverUrl: "https://kubernetes.default"
+      templates:
+      - containers:
+        - alwaysPullImage: true
+          args: "^${computer.jnlpmac} ^${computer.name}"
+          command: "sleep"
+          envVars:
+          - envVar:
+              key: "JENKINS_URL"
+              value: "http://jenkins-commercial.jenkins.svc.cluster.local:8080/"
+          image: "jenkins/inbound-agent:4.11-1"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          resourceLimitCpu: "512m"
+          resourceLimitMemory: "512Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          workingDir: "/home/jenkins/agent"
+        id: "eeb122dab57104444f5bf23ca29f3550fbc187b9d7a51036ea513e2a99fecf0f"
+        label: "jenkins-commercial-jenkins-agent"
+        name: "default"
+        namespace: "jenkins"
+        nodeUsageMode: "NORMAL"
+        podRetention: "never"
+        serviceAccount: "default"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        yamlMergeStrategy: "override"
+      - containers:
+        - alwaysPullImage: true
+          command: "cat"
+          envVars:
+          - envVar:
+              key: "JENKINS_HOME"
+              value: "/home/jenkins/agent"
+          image: "harbor.rke2-app.km.test/ead_base_images/kaniko_debug@sha256:bf95ba35868a61e74f86cacd017c19b443e137d645d7a4ca280874d43378363d"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "kaniko-harbor"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "9d0034e4-81c3-4e1e-a809-99fd4f70ac72"
+        label: "kaniko-harbor"
+        name: "kaniko-harbor"
+        namespace: "jenkins"
+        nodeUsageMode: "NORMAL"
+        serviceAccount: "kaniko-service-account"
+        volumes:
+        - secretVolume:
+            mountPath: "/kaniko/.docker"
+            optional: false
+            secretName: "regcred-auths"
+        - configMapVolume:
+            configMapName: "km-test-cabundle"
+            mountPath: "/kaniko/ssl/km-test-certs"
+            optional: false
+        - configMapVolume:
+            configMapName: "dod-root-ca5-cabundle"
+            mountPath: "/kaniko/ssl/dod-root-certs"
+            optional: false
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: false
+  labelAtoms:
+  - name: "built-in"
+  - name: "jenkins-commercial-jenkins-agent"
+  - name: "kaniko-harbor"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "admin"
+        name: "Jenkins Admin"
+        # KM - properties section below crashes JCASC reload
+        # properties:
+        # - "apiToken"
+        # - "mailer"
+        # - "myView"
+        # - preferredProvider:
+        #     providerId: "default"
+        # - "timezone"
+        # - favoriting:
+        #     autofavoriteEnabled: true
+        # - "favorite"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+unclassified:
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://jenkins-commercial.rke2-app.km.test/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "moore.kyle@idsi.com"
+    url: "https://jenkins-commercial.rke2-app.km.test/"
+  mailer:
+    authentication:
+      password: "{AQAAABAAAAAgOSUXrhIvjbm6CGp5qWbbm+pvyTpFYODwc+sGamBxJm2rEfc4ixG6tE3uXH5Uf5qV}"
+      username: "j.kyle.moore@gmail.com"
+    charset: "UTF-8"
+    replyToAddress: "moore.kyle@idsi.com"
+    smtpHost: "smtp.gmail.com"
+    smtpPort: "587"
+    useSsl: false
+    useTls: true
+  pollSCM:
+    pollingThreadCount: 10
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  maven:
+    installations:
+    - name: "Maven-3.8.4"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.8.4"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
